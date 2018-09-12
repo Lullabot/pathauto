@@ -29,8 +29,10 @@ class PathautoItem extends PathItem {
    */
   public function postSave($update) {
     // Only allow the parent implementation to act if pathauto will not create
-    // an alias.
-    if ($this->pathauto == PathautoState::SKIP) {
+    // an alias. If no pattern has been set for an entity, fallback on default
+    // core path handling.
+    $pattern = \Drupal::service('pathauto.generator')->getPatternByEntity($this->getEntity());
+    if ($this->pathauto == PathautoState::SKIP || empty($pattern)) {
       parent::postSave($update);
     }
     $this->get('pathauto')->persist();
