@@ -4,6 +4,9 @@ jobs:
     docker:
       - image: andrewberry/sync-git-upstream:latest
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "d3:74:3b:50:f6:ec:03:b7:3b:c3:eb:43:ba:8a:98:ee"
       - checkout
       - run: sync-git-upstream https://git.drupal.org/project/pathauto.git
 
