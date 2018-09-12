@@ -5,14 +5,14 @@ jobs:
       - image: andrewberry/sync-git-upstream:latest
     steps:
       - checkout
-      - run: sync-git-mirror
-        
+      - run: sync-git-upstream https://git.drupal.org/project/pathauto.git
+
 workflows:
   version: 2
   nightly:
   triggers:
     - schedule:
-        cron: "*/5 * * * *"
+        cron: "* * * * *"
         filters:
           branches:
             only:
