@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: andrewberry/sync-git-upstream:latest
+    steps:
+      - checkout
+      - run: sync-git-mirror
+        
+workflows:
+  version: 2
+  nightly:
+  triggers:
+    - schedule:
+        cron: "*/5 * * * *"
+        filters:
+          branches:
+            only:
+              - patched
+  build:
+    jobs:
+      - build
